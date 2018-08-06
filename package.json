@@ -6,7 +6,8 @@
     "test": "npm run lint"
   },
   "dependencies": {
-    
+    "@fedor/standard": "^1.0.3",
+    "autoprefixer": "^9.1.0"
   },
   "standard": {
     "parser": "babel-eslint",
