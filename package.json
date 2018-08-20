@@ -58,7 +58,8 @@
     "parser": "babel-eslint",
     "ignore": [
       "src/font/*",
-      "dist/**"
+      "dist/**",
+      "karma.conf.js"
     ]
   },
   "config": {
