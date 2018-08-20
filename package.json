@@ -8,6 +8,8 @@
     "clean": "rimraf static",
     "lint": "standard \"**/*.{js,vue}\"",
     "lint:fix": "standard \"**/*.{js,vue}\" --fix",
+    "style": "stylelint \"**/*.{scss,vue}\"",
+    "style:fix": "stylelint \"**/*.{scss,vue}\" --fix",
     "start": "npm run dev",
     "test": "npm run lint"
   },
@@ -32,6 +34,7 @@
     "cssnano": "next",
     "extract-text-webpack-plugin": "^3.0.2",
     "file-loader": "^1.1.11",
+    "ghooks": "^2.0.4",
     "globby": "^8.0.1",
     "html-loader": "^0.5.5",
     "html-webpack-ext-plugin": "^1.0.0",
@@ -57,5 +60,11 @@
       "src/font/*",
       "dist/**"
     ]
+  },
+  "config": {
+    "ghooks": {
+      "pre-commit": "npm run lint && npm run style",
+      "pre-push": "npm run test"
+    }
   }
 }
