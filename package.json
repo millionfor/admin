@@ -66,5 +66,11 @@
       "pre-commit": "npm run lint && npm run style",
       "pre-push": "npm run test"
     }
+  },
+  "devDependencies": {
+    "jasmine-core": "^3.2.1",
+    "karma": "^3.0.0",
+    "karma-chrome-launcher": "^2.2.0",
+    "karma-jasmine": "^1.1.2"
   }
 }
