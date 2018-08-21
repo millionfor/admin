@@ -1,6 +1,8 @@
 // Karma configuration
 // Generated on Mon Aug 20 2018 17:49:59 GMT+0800 (CST)
 
+const webpackConfig = require('../build/webpack.config.test.js')
+
 module.exports = function(config) {
   config.set({
 
@@ -10,11 +12,12 @@ module.exports = function(config) {
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['jasmine'],
+    frameworks: ['mocha'],
 
 
     // list of files / patterns to load in the browser
     files: [
+      '**/*.spec.js'
     ],
 
 
@@ -26,17 +29,19 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
+      '**/*.spec.js': ['webpack', 'sourcemap']
     },
 
+    webpack: webpackConfig,
 
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress'],
+    reporters: ['spec', 'coverage'],
 
 
     // web server port
-    port: 9876,
+    port: 1108,
 
 
     // enable / disable colors in the output (reporters and logs)
@@ -54,8 +59,7 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['Chrome', 'Firefox', 'Safari', 'IE', 'Opera'],
-
+    browsers: ['Chrome'],
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits

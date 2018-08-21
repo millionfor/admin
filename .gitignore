@@ -31,3 +31,4 @@ config.gypi
 yarn.lock
 dist
 dist/
+test/coverage
