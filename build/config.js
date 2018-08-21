@@ -103,7 +103,6 @@ const baseConfig = {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
         loader: 'file-loader',
         options: {
-          publicPath: distDir,
           name: 'images/[name].[ext]?[hash]'
         }
       },

@@ -11,7 +11,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const SERVER_PORT = 9090
 
 const config = merge.smart(baseConfig, {
-  devtool: 'source-map',
+  devtool: 'eval-source-map',
   output: {
     filename: 'js/[name].js'
   },

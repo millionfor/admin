@@ -12,7 +12,7 @@ const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 
 const config = merge.smart(baseConfig, {
-  devtool: false,
+  devtool: 'source-map',
   output: {
     filename: 'js/[name].[chunkhash:7].js'
   },
@@ -80,7 +80,7 @@ const config = merge.smart(baseConfig, {
     }),
     new UglifyJSPlugin({
       parallel: true,
-      sourceMap: false,
+      sourceMap: true,
       uglifyOptions: {
         compress: {
           drop_console: true,
