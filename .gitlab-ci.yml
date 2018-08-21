@@ -1,0 +1,20 @@
+cache:
+  paths:
+    - node_modules/
+
+stages:
+ - build
+ - test
+ - deploy
+
+test:
+  stage: test
+  tags:
+    - development
+  script:
+    - yarn
+    - npm run lint
+    - npm run style
+  only:
+    - branches
+    - tags
