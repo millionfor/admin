@@ -74,6 +74,4 @@ const config = merge.smart(baseConfig, {
   ]
 })
 
-console.log(config.externals)
-
 module.exports = config
