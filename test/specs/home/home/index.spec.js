@@ -1,6 +1,6 @@
 import { expect } from 'chai'
 import Vue from 'vue'
-import Index from '../../../../src/js/conf/home/pages/home/index.vue'
+import Index from '@/js/conf/home/pages/home/index.vue'
 
 describe('home -> pages -> home -> index.vue', () => {
   it('should render contents', () => {
