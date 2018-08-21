@@ -12,7 +12,6 @@ test:
   tags:
     - development
   script:
-    - yarn
     - npm run lint
     - npm run style
   only:
