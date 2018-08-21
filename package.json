@@ -11,7 +11,7 @@
     "style": "stylelint \"**/*.{scss,vue}\"",
     "style:fix": "stylelint \"**/*.{scss,vue}\" --fix",
     "start": "npm run dev",
-    "test": "npm run lint"
+    "test": "npm run lint && karma start test/karma.conf.js --single-run"
   },
   "dependencies": {
     "@fedor/standard": "^1.0.3",
@@ -64,14 +64,19 @@
   },
   "config": {
     "ghooks": {
-      "pre-commit": "npm run lint && npm run style",
-      "pre-push": "npm run test"
+      "pre-commit": "npm run lint && npm run style"
     }
   },
   "devDependencies": {
+    "@vue/test-utils": "^1.0.0-beta.24",
     "jasmine-core": "^3.2.1",
     "karma": "^3.0.0",
     "karma-chrome-launcher": "^2.2.0",
-    "karma-jasmine": "^1.1.2"
+    "karma-jasmine": "^1.1.2",
+    "karma-mocha": "^1.3.0",
+    "karma-sourcemap-loader": "^0.3.7",
+    "karma-spec-reporter": "^0.0.32",
+    "karma-webpack": "^3.0.0",
+    "mocha": "^5.2.0"
   }
 }
