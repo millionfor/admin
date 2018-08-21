@@ -10,7 +10,7 @@ const { baseConfig } = require('./config')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 const config = merge.smart(baseConfig, {
-  devtool: false,
+  devtool: 'inline-source-map',
   output: {
     filename: 'js/[name].js'
   },
