@@ -1,9 +1,54 @@
 // Karma configuration
-// Generated on Mon Aug 20 2018 17:49:59 GMT+0800 (CST)
 
 const webpackConfig = require('../build/webpack.config.test.js')
 
 module.exports = function(config) {
+  // launchers config
+  const customLaunchers = {
+    BS_Chrome: {
+      base: 'BrowserStack',
+      os: 'Windows',
+      os_version: '10',
+      browser: 'chrome',
+      browser_version: '47.0'
+    },
+    BS_Firefox: {
+      base: 'BrowserStack',
+      os: 'Windows',
+      os_version: '10',
+      browser: 'firefox',
+      browser_version: '43.0'
+    },
+    BS_Safari: {
+      base: 'BrowserStack',
+      os: 'OS X',
+      os_version: 'El Capitan',
+      browser: 'safari',
+      browser_version: '9.0'
+    },
+    BS_MobileSafari9: {
+      base: 'BrowserStack',
+      os: 'ios',
+      os_version: '9.1',
+      browser: 'iphone',
+      real_mobile: false
+    },
+    BS_InternetExplorer10: {
+      base: 'BrowserStack',
+      os: 'Windows',
+      os_version: '8',
+      browser: 'ie',
+      browser_version: '10.0'
+    },
+    BS_InternetExplorer11: {
+      base: 'BrowserStack',
+      os: 'Windows',
+      os_version: '10',
+      browser: 'ie',
+      browser_version: '11.0'
+    }
+  }
+
   config.set({
 
     // base path that will be used to resolve all patterns (eg. files, exclude)
@@ -22,8 +67,7 @@ module.exports = function(config) {
 
 
     // list of files / patterns to exclude
-    exclude: [
-    ],
+    exclude: [],
 
 
     // preprocess matching files before serving them to the browser
@@ -32,7 +76,10 @@ module.exports = function(config) {
       '**/*.spec.js': ['webpack', 'sourcemap']
     },
 
+
+    // webpack config
     webpack: webpackConfig,
+
 
     // test results reporter to use
     // possible values: 'dots', 'progress'
@@ -47,6 +94,8 @@ module.exports = function(config) {
     // enable / disable colors in the output (reporters and logs)
     colors: true,
 
+
+    // proxy path or api
     proxies: {
       '@': '../../../../src',
       '@@': '../../../src'
@@ -64,6 +113,7 @@ module.exports = function(config) {
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
     browsers: ['Chrome'],
+    // customLaunchers,
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
