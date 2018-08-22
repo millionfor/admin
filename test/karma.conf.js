@@ -1,8 +1,12 @@
 // Karma configuration
 
+const path = require('path')
 const webpackConfig = require('../build/webpack.config.test.js')
 
+const resolve = (dir) => path.resolve(__dirname, '..',dir)
+
 module.exports = function(config) {
+
   // launchers config
   const customLaunchers = {
     BS_Chrome: {
@@ -52,7 +56,7 @@ module.exports = function(config) {
   config.set({
 
     // base path that will be used to resolve all patterns (eg. files, exclude)
-    basePath: '',
+    basePath: resolve('test'),
 
 
     // frameworks to use
@@ -97,8 +101,7 @@ module.exports = function(config) {
 
     // proxy path or api
     proxies: {
-      '@': '../../../../src',
-      '@@': '../../../src'
+      '@': resolve('src')
     },
 
     // level of logging
