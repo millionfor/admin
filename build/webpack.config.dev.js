@@ -8,7 +8,8 @@ const webpack = require('webpack')
 const merge = require('webpack-merge')
 const { assetsDir, baseConfig } = require('./config')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
-const SERVER_PORT = 9090
+const ProgressPlugin = require('@fedor/progress-webpack-plugin')
+const getEnv = require('env-parse').getEnv
 
 const config = merge.smart(baseConfig, {
   devtool: 'eval-source-map',
@@ -71,13 +72,14 @@ const config = merge.smart(baseConfig, {
     hot: true,
     contentBase: assetsDir,
     publicPath: baseConfig.output.publicPath,
-    port: SERVER_PORT,
+    port: getEnv('DEV_PORT', 9090),
+    host: getEnv('DEV_HOST', 'localhost'),
     noInfo: false,
     historyApiFallback: true,
     disableHostCheck: true,
     proxy: {
-      // '/pc': {
-      //   target: 'http://www.baidu.com/',
+      // '/api': {
+      //   target: getEnv('API_BASE', 'http://local.dev:8080/backend'),
       //   changeOrigin: true // 代理为域名时必须指定为true
       // }
     },
@@ -89,6 +91,7 @@ const config = merge.smart(baseConfig, {
     clientLogLevel: 'none'
   },
   plugins: [
+    new ProgressPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new ExtractTextPlugin({ filename: 'css/[name].css', allChunks: true }),
     new webpack.optimize.CommonsChunkPlugin({ name: 'common', filename: 'js/[name].js' }),
