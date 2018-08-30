@@ -9,6 +9,7 @@ const merge = require('webpack-merge')
 const { assetsDir, baseConfig } = require('./config')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const ProgressPlugin = require('@fedor/progress-webpack-plugin')
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const getEnv = require('env-parse').getEnv
 
 const config = merge.smart(baseConfig, {
@@ -92,6 +93,7 @@ const config = merge.smart(baseConfig, {
   },
   plugins: [
     new ProgressPlugin(),
+    new VueLoaderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new ExtractTextPlugin({ filename: 'css/[name].css', allChunks: true }),
     new webpack.optimize.CommonsChunkPlugin({ name: 'common', filename: 'js/[name].js' }),

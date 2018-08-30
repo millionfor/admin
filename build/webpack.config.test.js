@@ -8,6 +8,7 @@ const webpack = require('webpack')
 const merge = require('webpack-merge')
 const { baseConfig } = require('./config')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
 const config = merge.smart(baseConfig, {
   devtool: 'inline-source-map',
@@ -68,6 +69,7 @@ const config = merge.smart(baseConfig, {
   },
   externals: '',
   plugins: [
+    new VueLoaderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new ExtractTextPlugin({ filename: 'css/[name].css', allChunks: true }),
     new webpack.optimize.OccurrenceOrderPlugin()
