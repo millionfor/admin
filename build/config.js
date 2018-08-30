@@ -11,13 +11,12 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const HtmlWebpackExtPlugin = require('html-webpack-ext-plugin')
 const isProduction = process.env.NODE_ENV !== 'development'
 
+const resolve = dir => path.join(__dirname, '..', dir)
+
 const assetsDir = resolve('src')
 const distDir = resolve('dist')
 const viewDir = resolve('src/view')
 
-function resolve (dir) {
-  return path.join(__dirname, '..', dir)
-}
 
 function moduleName (modules) {
   let filename = path.basename(modules)
@@ -55,15 +54,48 @@ const minifierConfig = isProduction ? {
 
 const getPageEntry = view => jsEntry[view] ? view : ''
 
+// 重新定向输出页面
+const pageRewriter = {
+  'view/home/index.*': 'index.html'
+}
+
+const isEmpty = o => {
+  for (let k in o) {
+    if (o.hasOwnProperty(k)) {
+      return
+    }
+  }
+  return true
+}
+
+const unixPath = v => v.replace(/\\/g, '/')
+
+const rewriterPath = p => {
+  if (isEmpty(pageRewriter)) {
+    return
+  }
+
+  for (let k in pageRewriter) {
+    let regx = new RegExp(k)
+
+    if (regx.test(unixPath(p))) {
+      return pageRewriter[k]
+    }
+  }
+}
+
 const pages = glob.sync(['*/!(_*).html'], { cwd: viewDir }).map(p => {
+  let pagePath = `${path.join(viewDir, p)}`
+  let newPagePath = rewriterPath(pagePath)
+
   let entry = getPageEntry(p.replace('.html', ''))
   let chunks = ['common']
   if (entry) {
     chunks.push(entry)
   }
   return new HtmlWebpackPlugin({
-    filename: path.join('view', p),
-    template: `html-loader?min=false!src/view/${p}`,
+    filename: newPagePath || path.join('view', p),
+    template: `html-loader?min=false!${path.join(viewDir, p)}`,
     cache: true,
     inject: true,
     chunks: chunks,
