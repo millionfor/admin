@@ -51,7 +51,6 @@ const config = merge.smart(baseConfig, {
         loader: ExtractTextPlugin.extract({
           use: [
             'css-loader',
-            'sass-loader',
             {
               loader: 'postcss-loader',
               options: {
@@ -62,7 +61,8 @@ const config = merge.smart(baseConfig, {
                   require('cssnano')
                 ]
               }
-            }
+            },
+            'sass-loader'
           ],
           fallback: ['vue-style-loader']
         })
