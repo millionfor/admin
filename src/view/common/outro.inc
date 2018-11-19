@@ -1,1 +1,6 @@
-<script src="https://s1.analysys.cn/libs/??vue/2.5.2/vue.js,vue-router/2.7.0/vue-router.min.js,vuex/3.0.0/vuex.min.js,jquery/1.12.4/jquery.min.js,lodash.js/4.17.5/lodash.min.js"></script>
+<script src="//cdn.staticfile.org/vue/2.5.2/vue.min.js"></script>
+<script src="//cdn.staticfile.org/vue-router/2.7.0/vue-router.min.js"></script>
+<script src="//cdn.staticfile.org/vuex/3.0.0/vuex.min.js"></script>
+<script src="//cdn.staticfile.org/jquery/3.3.1/jquery.min.js"></script>
+<script src="//cdn.staticfile.org/lodash.js/4.17.11/lodash.min.js"></script>
+<script src="//cdn.staticfile.org/element-ui/2.4.9/index.js"></script>

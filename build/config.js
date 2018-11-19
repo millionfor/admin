@@ -156,7 +156,7 @@ const baseConfig = {
       resolve('src/js')
     ],
     alias: {
-      '@': resolve('src')
+      '@': resolve('src/js')
     },
     extensions: ['.js', 'json', '.vue', '.scss']
   },
@@ -165,7 +165,8 @@ const baseConfig = {
     'vuex': 'Vuex',
     'vue-router': 'VueRouter',
     'jquery': '$',
-    'lodash': '_'
+    'lodash': '_',
+    'element': 'element-ui'
   },
   plugins: [
     new webpack.ProvidePlugin({ vue: 'Vue', _: 'lodash' }),

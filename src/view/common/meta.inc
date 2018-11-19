@@ -11,3 +11,4 @@
 <meta name="theme-color" content="#4a8dee">
 <meta name="msapplication-navbutton-color" content="#4a8dee">
 <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1">
+<link href="//cdn.staticfile.org/element-ui/2.4.9/theme-chalk/index.css" rel="stylesheet">

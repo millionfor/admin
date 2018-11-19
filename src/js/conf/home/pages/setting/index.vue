@@ -7,6 +7,7 @@
       <el-main>
         <el-breadcrumb  separator="/">
           <el-breadcrumb-item :to="{ path: '/' }">后台首页</el-breadcrumb-item>
+          <el-breadcrumb-item>基本设置</el-breadcrumb-item>
         </el-breadcrumb>
       </el-main>
     </el-container>
@@ -14,21 +15,21 @@
 </template>
 
 <script>
-import $ from 'jquery'
-import mSidebar from '@/module/components/sidebar/sidebar'
+  import $ from 'jquery'
+  import mSidebar from '@/module/components/sidebar/sidebar'
 
-export default {
-  name: 'home',
-  data () {
-    return {
-    }
-  },
-  methods: { },
-  mounted () {
+  export default {
+    name: 'setting-index',
+    data () {
+      return {
+      }
+    },
+    methods: { },
+    mounted () {
 
-  },
-  components: { mSidebar }
-}
+    },
+    components: { mSidebar }
+  }
 </script>
 
 <style lang="scss">
