@@ -166,7 +166,8 @@ const baseConfig = {
     'vue-router': 'VueRouter',
     'jquery': '$',
     'lodash': '_',
-    'element': 'element-ui'
+    'element': 'element-ui',
+    'moment': 'moment'
   },
   plugins: [
     new webpack.ProvidePlugin({ vue: 'Vue', _: 'lodash' }),

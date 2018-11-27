@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import $ from 'jquery'
+// import $ from 'jquery'
 import mSidebar from '@/module/components/sidebar/sidebar'
 
 export default {

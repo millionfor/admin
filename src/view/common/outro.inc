@@ -4,3 +4,4 @@
 <script src="//cdn.staticfile.org/jquery/3.3.1/jquery.min.js"></script>
 <script src="//cdn.staticfile.org/lodash.js/4.17.11/lodash.min.js"></script>
 <script src="//cdn.staticfile.org/element-ui/2.4.9/index.js"></script>
+<script src="//cdn.staticfile.org/moment.js/2.22.2/moment.min.js"></script>

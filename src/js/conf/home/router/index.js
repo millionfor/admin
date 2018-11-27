@@ -39,6 +39,22 @@ const router = new Router({
             title: '分类列表 '
           }
         },
+        {
+          path: '/classify/create',
+          name: 'classify-create',
+          component: resolve => require(['../pages/classify/pages/create/index'], resolve),
+          meta: {
+            title: '添加分类'
+          }
+        },
+        {
+          path: '/classify/details/:id',
+          name: 'classify-details',
+          component: resolve => require(['../pages/classify/pages/create/index'], resolve),
+          meta: {
+            title: '添加分类'
+          }
+        }
       ]
     },
     {
@@ -60,6 +76,14 @@ const router = new Router({
             title: '照片列表 '
           }
         },
+        {
+          path: '/photo/create',
+          name: 'photo-create',
+          component: resolve => require(['../pages/photo/pages/create/index'], resolve),
+          meta: {
+            title: '照片列表 '
+          }
+        }
       ]
     },
     {
@@ -69,7 +93,7 @@ const router = new Router({
       meta: {
         title: '设置'
       }
-    },
+    }
 
   ]
 })

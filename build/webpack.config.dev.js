@@ -79,10 +79,10 @@ const config = merge.smart(baseConfig, {
     historyApiFallback: true,
     disableHostCheck: true,
     proxy: {
-      // '/api': {
-      //   target: getEnv('API_BASE', 'http://local.dev:8080/backend'),
-      //   changeOrigin: true // 代理为域名时必须指定为true
-      // }
+      '/syApi': {
+        target: getEnv('API_BASE', 'http://local.dev:8080/backend'),
+        changeOrigin: true
+      }
     },
     progress: false,
     quiet: false,

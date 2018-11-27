@@ -1,1 +1,16 @@
 @import "../../common/index.scss";
+
+.conditions {
+  margin: 20px 0;
+  position: relative;
+  .search {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+}
+
+.form-content {
+  border: 1px solid #ebeef5;
+  padding: 30px;
+}

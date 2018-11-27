@@ -5,13 +5,13 @@ import App from './App'
 import router from './router'
 import store from './store'
 import { sync } from 'vuex-router-sync'
-import ElementUI from  'element-ui'
+import ElementUI from 'element-ui'
 
 import 'sass/conf/home/index.scss'
 
 sync(store, router)
 
-Vue.use(ElementUI);
+Vue.use(ElementUI)
 
 Vue.config.devtools = true
 Vue.config.productionTip = true

@@ -37,31 +37,31 @@
 </template>
 <script>
   export default {
-    name: "sidebar",
-    data() {
+    name: 'sidebar',
+    data () {
       return {}
     },
     props: {},
     methods: {},
     watch: {},
-    beforeCreate() {
+    beforeCreate () {
     },
-    created() {
+    created () {
     },
-    beforeMount() {
+    beforeMount () {
     },
-    mounted() {
+    mounted () {
     },
-    beforeUpdate() {
+    beforeUpdate () {
     },
-    updated() {
+    updated () {
     },
-    beforeDestroy() {
+    beforeDestroy () {
     },
-    destroyed() {
+    destroyed () {
     },
     computed: {},
-    components: {},
+    components: {}
   }
 </script>
 
