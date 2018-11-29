@@ -83,6 +83,14 @@ const router = new Router({
           meta: {
             title: '照片列表 '
           }
+        },
+        {
+          path: '/photo/details/:id',
+          name: 'photo-details',
+          component: resolve => require(['../pages/photo/pages/create/index'], resolve),
+          meta: {
+            title: '相册集合'
+          }
         }
       ]
     },
