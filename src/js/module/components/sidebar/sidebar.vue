@@ -32,6 +32,11 @@
         <i class="el-icon-setting"></i>
         <span slot="title">参数配置</span>
       </el-menu-item>
+
+      <el-menu-item index="/qn-config">
+        <i class="el-icon-upload"></i>
+        <span slot="title">七牛云配置</span>
+      </el-menu-item>
     </el-menu>
   </div>
 </template>

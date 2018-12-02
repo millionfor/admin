@@ -21,7 +21,7 @@
       <el-table-column
               label="是否热门">
         <template slot-scope="scope">
-          {{scope.row.photos_hot}}
+          {{scope.row.photos_recommended}}
         </template>
       </el-table-column>
       <el-table-column

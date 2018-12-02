@@ -24,7 +24,7 @@
             <el-option
                     v-for="item in classifysList"
                     :key="item.classifys_id"
-                    :label="item.classifys_cn_name"
+                    :label="item.classifys_cn_name + '-' +item.classifys_en_name"
                     :value="item.classifys_id">
             </el-option>
           </el-select>
@@ -58,24 +58,15 @@
   </div>
 </template>
 <script>
+  import Vue from 'vue'
   import _ from 'lodash'
   import io from '@/module/io'
-  import { itemAppendHtml, getSort } from './_source/util'
+  import { Input, Radio } from 'element-ui'
 
 
   export default {
     name: 'photo-create-index',
     data () {
-      /* let fileList = [
-        {
-          name: 'food.jpeg',
-          url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'
-        },
-        {
-          name: 'food2.jpeg',
-          url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'
-        }
-      ] */
       return {
         fileList: [],
         form: {
@@ -92,40 +83,48 @@
     props: {},
     methods: {
       handleRemove (file, fileList) {
-        console.log(file, fileList)
+        let isF = _.findIndex(this.fileList, v => v.name === file.name) !== -1
+        if (isF) {
+          this.deleteOnePhoto(file.name)
+        } else {
+          this.filePaths = _.filter(this.filePaths, v => v.name !== file.name)
+        }
       },
       uploadFile ({ file }) {
-        this.handleFilePaths(file.name)
-      },
-      handleFilePaths (imgPath) {
-        let i = _.findIndex(this.filePaths, v => v === imgPath)
+        let i = _.findIndex(this.filePaths, v => v.pathName === file.name)
         if (i === -1) {
-          this.filePaths.push(imgPath)
-          // 插入节点排序和设为封面
-          itemAppendHtml(parseInt(this.filePaths.length + this.fileList.length) - 1)
+          this.filePaths.push({
+            pathName: file.name,
+            sort: 99
+          })
         }
       },
       handleBeforeUpload ({ name }) {
-        let i = _.findIndex(this.filePaths, v => v === name)
+        let i = _.findIndex(this.filePaths, v => v.pathName === name)
         if (i !== -1) {
           return false
         }
       },
       onSubmit () {
-        this.filePaths = _.map(this.filePaths, (v, i) => {
-          return {
-            imgPath: v,
-            sort: getSort(i)
-          }
-        })
+        let id = this.$route.params.id || null
+        let result = this.fileList.concat(this.filePaths)
 
-        io.post('photos/create', Object.assign(this.form, {}, {
-          filePaths: this.filePaths
+        if (id) {
+          this.form.photosId = id
+        }
+
+        console.log(Object.assign(this.form, {}, {
+          filePaths: result
+        }))
+
+        io.post(`photos/${this.$route.params.id ? 'update' : 'create'}`, Object.assign(this.form, {}, {
+          filePaths: result
         }), res => {
           this.$message({
             message: res.msg,
             type: 'success'
           })
+          this.$router.push({ name: 'photo-list' })
         }, null, {
           emulateJSON: false
         }).catch(e => {
@@ -141,17 +140,19 @@
             this.form.photosDesc = data.photos_desc
             this.form.photosCover = data.photos_cover
             this.form.classifysId = data.classifys_id
+
             this.fileList = _.map(data.photos_path_name, (v, i) => {
-              // 插入节点排序和设为封面
-              itemAppendHtml(i, v)
-              return {
+              return Object.assign(v, {}, {
                 name: v['key'],
-                url: v['imageView']
-              }
+                url: v['url']
+              })
+              /* return {
+                name: v['key'],
+                url: v['url'],
+                pathName:v['x:filename'],
+                sort:v['sort']
+              } */
             })
-            setTimeout(() => {
-              $('.el-upload-list__item').eq(this.form.photosCover).find('input[type=radio]').attr('checked', true)
-            }, 100)
             resolve()
           }).catch(e => {
             reject(e)
@@ -167,9 +168,119 @@
             reject(e)
           })
         })
+      },
+
+      /**
+       * 删除一张照片
+       */
+      deleteOnePhoto (fileName) {
+        io.post('photos/deleteOnePhoto', {
+          fileName: fileName,
+          photosId: this.$route.params.id
+        }).then(res => {
+          this.$message({
+            message: res.msg,
+            type: 'success'
+          })
+        }).catch(e => {
+          this.$message.error(e.msg)
+        })
+      },
+
+      /**
+       * 处理回显
+       */
+      handleBack (index) {
+        $('.el-upload-list__item').eq(index).append(`<div class="el-upload-fromx"><div class="up-radio up-radio-${index}"></div><div class="up-input up-input-${index}"></div></div>`)
+        let self = this
+        new Vue({
+          render: h => h(Radio, {
+            scopedSlots: {
+              default: () => {
+                return '封面-'
+              }
+            },
+            on: {
+              input (event) {
+                self.form.photosCover = event
+              }
+            },
+            props: {
+              label: index,
+              value: self.form.photosCover
+            }
+          })
+        }).$mount(`.up-radio-${index}`)
+        new Vue({
+          render: h => h(Input, {
+            on: {
+              input (val) {
+                self.fileList[index].sort = parseInt(val)
+              }
+            },
+            props: {
+              value: self.fileList[index].sort
+            }
+          })
+        }).$mount(`.up-input-${index}`)
+      },
+      /**
+       * 处理增加一条数据
+       */
+      handleAddRecords (index) {
+        let eqIndex = parseInt(index + this.fileList.length)
+
+        $('.el-upload-list__item').eq(eqIndex).append(`<div class="el-upload-fromx"><div class="up-radio up-radio-${eqIndex}"></div><div class="up-input up-input-${eqIndex}"></div></div>`)
+        let self = this
+        new Vue({
+          render: h => h(Radio, {
+            scopedSlots: {
+              default: () => {
+                return '封面-'
+              }
+            },
+            on: {
+              input (event) {
+                self.form.photosCover = event
+              }
+            },
+            props: {
+              label: eqIndex,
+              value: self.form.photosCover
+            }
+          })
+        }).$mount(`.up-radio-${eqIndex}`)
+        new Vue({
+          render: h => h(Input, {
+            on: {
+              input (val) {
+                self.filePaths[index].sort = parseInt(val)
+              }
+            },
+            props: {
+              value: self.filePaths[index].sort
+            }
+          })
+        }).$mount(`.up-input-${eqIndex}`)
       }
     },
     watch: {
+      // 增加一条
+      filePaths (arr) {
+        _.map(arr, (v, i) => {
+          setTimeout(() => {
+            this.handleAddRecords(i)
+          }, 200)
+        })
+      },
+      // 回显
+      fileList (arr) {
+        _.map(arr, (v, i) => {
+          setTimeout(() => {
+            this.handleBack(i)
+          }, 100)
+        })
+      }
     },
     beforeCreate () {
     },
@@ -213,17 +324,10 @@
         position: absolute;
         right: 50px;
         top: 25px;
-        label{
-          span {
-            vertical-align: middle;
-            padding-left: 6px;
-          }
-          input[type=radio] {
-            vertical-align: middle;
-          }
-          input[type=text] {
-            width: 60px;
-            margin-left: 10px;
+        .el-input {
+          width: 60px;
+          margin-left: 10px;
+          input {
             text-align: center;
           }
         }

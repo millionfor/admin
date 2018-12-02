@@ -91,8 +91,7 @@
       }
     },
     mounted () {
-      io.get('setting/findById', res => {
-        let data = res.data[0]
+      io.get('setting/getConfig', ({ data }) => {
         this.form.name = data.name
         this.form.gender = data.gender
         this.form.email = data.email

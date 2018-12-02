@@ -21,6 +21,14 @@ const router = new Router({
       }
     },
     {
+      path: '/test',
+      name: 'test',
+      component: resolve => require(['../pages/test/index'], resolve),
+      meta: {
+        title: 'test'
+      }
+    },
+    {
       path: '/classify',
       name: 'classify',
       component: resolve => require(['../pages/classify/index'], resolve),
@@ -100,6 +108,14 @@ const router = new Router({
       component: resolve => require(['../pages/setting/index'], resolve),
       meta: {
         title: '设置'
+      }
+    },
+    {
+      path: '/qn-config',
+      name: 'qn-config',
+      component: resolve => require(['../pages/qn/index'], resolve),
+      meta: {
+        title: '七牛云设置'
       }
     }
 
