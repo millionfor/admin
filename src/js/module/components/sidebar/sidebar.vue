@@ -2,7 +2,7 @@
   <div class="sidebar-model">
     <div class="logo-model">
       <img src="./tx.jpeg" alt="" class="avr">
-      <p class="text">millionfor@gmail.com</p>
+      <p class="text">{{userInfo.user_name}}</p>
     </div>
     <el-menu
             router="true"
@@ -38,16 +38,30 @@
         <span slot="title">七牛云配置</span>
       </el-menu-item>
     </el-menu>
+    <div class="logout">
+      <a href="javascript:" @click="logout">
+        <i class="el-icon-back"></i>
+        <span>退出登录</span>
+      </a>
+    </div>
   </div>
 </template>
 <script>
+  import io from '@/module/io'
+  import { mapState } from 'vuex'
   export default {
     name: 'sidebar',
     data () {
       return {}
     },
     props: {},
-    methods: {},
+    methods: {
+      logout () {
+        io.get('users/logout').then(res => {
+          window.location.href = '/view/login'
+        })
+      }
+    },
     watch: {},
     beforeCreate () {
     },
@@ -56,6 +70,7 @@
     beforeMount () {
     },
     mounted () {
+
     },
     beforeUpdate () {
     },
@@ -65,7 +80,9 @@
     },
     destroyed () {
     },
-    computed: {},
+    computed: {
+      ...mapState('users', ['userInfo'])
+    },
     components: {}
   }
 </script>
@@ -90,7 +107,34 @@
         margin: 0 auto;
       }
       .text {
-        color: #fff;
+        color: #FFD04A;
+      }
+    }
+    .logout {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      a {
+        height: 44px;
+        line-height: 44px;
+        background: #454b54;
+        text-align: center;
+        display: block;
+        font-size: 14px;
+        text-decoration: none;
+        color: #FFD04A;
+        width: 200px;
+        &:hover {
+          background: #363B44;
+        }
+        i {
+          font-weight: bold;
+          vertical-align: middle;
+          font-size: 16px;
+        }
+        span {
+          vertical-align: middle;
+        }
       }
     }
   }

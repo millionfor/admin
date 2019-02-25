@@ -37,7 +37,11 @@ io.request = (spec) => {
 // Global response interceptor registion
 io.interceptors.response.use(
   response => {
-    return response
+    if (response.data.code === '-1') {
+      return window.location.href = '/view/login'
+    } else {
+      return response
+    }
   }, error => {
     // Do something with response error
     return Promise.reject(error)

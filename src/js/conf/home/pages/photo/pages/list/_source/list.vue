@@ -5,6 +5,7 @@
             border
             style="width: 100%">
       <el-table-column
+              align="center"
               prop="photos_id"
               label="序号">
       </el-table-column>
@@ -19,9 +20,11 @@
         </template>
       </el-table-column>
       <el-table-column
+              align="center"
               label="是否热门">
         <template slot-scope="scope">
-          {{scope.row.photos_recommended}}
+          <i class="el-icon-circle-check" v-if="scope.row.photos_recommended" style="color: #36BC2C;font-size: 18px;"></i>
+          <i class="el-icon-circle-close" v-if="!scope.row.photos_recommended" style="color: #ff0000;font-size: 18px;"></i>
         </template>
       </el-table-column>
       <el-table-column
