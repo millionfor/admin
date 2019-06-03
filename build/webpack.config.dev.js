@@ -1,8 +1,3 @@
-/**
- * webpack config
- *
- * Authors: axin
- */
 
 const webpack = require('webpack')
 const merge = require('webpack-merge')

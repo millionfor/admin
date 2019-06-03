@@ -1,8 +1,3 @@
-/**
- * webpack config
- *
- * Authors: axin
- */
 
 const path = require('path')
 const glob = require('globby')
